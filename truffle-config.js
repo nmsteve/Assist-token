@@ -41,12 +41,15 @@ module.exports = {
     // You should run a client (like ganache-cli, geth or parity) in a separate terminal
     // tab if you use this network and you must also set the `host`, `port` and `network_id`
     // options below to some value.
-    //
-    // development: {
-    //  host: "127.0.0.1",     // Localhost (default: none)
-    //  port: 8545,            // Standard Ethereum port (default: none)
-    //  network_id: "*",       // Any network (default: none)
-    // },
+
+    //ganache-cli --gasLimit=0x1fffffffffffff --allowUnlimitedContractSize -e 1000000000.
+    development: {
+    host: "127.0.0.1",     // Localhost (default: none)
+    port: 8545,            // Standard Ethereum port (default: none)
+     network_id: "*",       // Any network (default: none)
+     gas: 0x1fffffffffffff,           // Gas sent with each transaction (default: ~6700000)
+     gasPrice: 20000000000,  // 20 gwei (in wei) (default: 100 gwei)
+     },
     // Another network with more advanced options...
     // advanced: {
     // port: 8777,             // Custom port
@@ -61,16 +64,16 @@ module.exports = {
     ropsten: {
     provider: () => new HDWalletProvider(process.env.MNEMONIC, `wss://ropsten.infura.io/ws/v3/${process.env.SECRET_KEY}`),
     network_id: 3,       // Ropsten's id
-    gas: 5500000,        // Ropsten has a lower block limit than mainnet
+    gas: 8015630,        // Ropsten has a lower block limit than mainnet
     confirmations: 1,    // # of confs to wait between deployments. (default: 0)
-    timeoutBlocks: 20000,  // # of blocks before a deployment times out  (minimum/default: 50)
+    timeoutBlocks: 2000000,  // # of blocks before a deployment times out  (minimum/default: 50)
     skipDryRun: true     // Skip dry run before migrations? (default: false for public nets )
     },
 
     kovan: {
       provider: () => new HDWalletProvider(process.env.MNEMONIC, `wss://kovan.infura.io/ws/v3/${process.env.SECRET_KEY}`),
       network_id: 42,       // kovan's id
-      gas: 5500000,        // kovan has a lower block limit than mainnet
+      gas: 30000000,        // kovan has a lower block limit than mainnet
       confirmations: 1,    // # of confs to wait between deployments. (default: 0)
       timeoutBlocks: 200000,  // # of blocks before a deployment times out  (minimum/default: 50)
       skipDryRun: true     // Skip dry run before migrations? (default: false for public nets )
@@ -85,8 +88,6 @@ module.exports = {
         confirmations: 1,    // # of confs to wait between deployments. (default: 0)
         timeoutBlocks: 200000,  // # of blocks before a deployment times out  (minimum/default: 50)
       skipDryRun: true
-        skipDryRun: true,
-
      },
 
     
@@ -107,10 +108,10 @@ module.exports = {
       version: "^0.8.0",    // Fetch exact version from solc-bin (default: truffle's version)
       // docker: true,        // Use "0.5.1" you've installed locally with docker (default: false)
       // settings: {          // See the solidity docs for advice about optimization and evmVersion
-      //  optimizer: {
-      //    enabled: false,
-      //    runs: 200
-      //  },
+      optimizer: {
+      enabled: false,
+       runs: 20
+       },
       //  evmVersion: "byzantium"
       // }
     }

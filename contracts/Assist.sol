@@ -73,27 +73,32 @@ contract Assist is ERC20, ERC1363, ERC2612, ERC20Burnable, ERC20TokenRecover, IA
 
     bool private nameChanged = false;
 
-    constructor(
-        address _routerAddress,
-        address _busd,
-        address _marketingWallet,
-        address _developmentWallet,
-        address _teamWallet )
-      ERC2612("Assist", "ASST") {
-        IDEXRouter _dexRouter = IDEXRouter(_routerAddress);
-        BUSD = _busd;
-        marketingWallet = _marketingWallet;
-        liquidityWallet = owner();
-        teamWallet = _teamWallet;
-        developmentWallet = _developmentWallet;
+    //events
+    event nameUpdated(string _name);
+    event symbolUpdated(string symbol );
 
-        defaultDexRouter = _dexRouter;
-        dexRouters[_routerAddress] = true;
-        defaultPair = IDEXFactory(_dexRouter.factory()).createPair(address(this), _dexRouter.WETH());
+    constructor(
+        // address _routerAddress,
+        address _busd
+        // address _marketingWallet,
+        // address _developmentWallet,
+        // address _teamWallet
+         )
+      ERC2612("Assist", "ASST") {
+        // IDEXRouter _dexRouter = IDEXRouter(_routerAddress);
+        BUSD = _busd;
+        // marketingWallet = _marketingWallet;
+        // liquidityWallet = owner();
+        // teamWallet = _teamWallet;
+        // developmentWallet = _developmentWallet;
+
+        // defaultDexRouter = _dexRouter;
+        // dexRouters[_routerAddress] = true;
+        // defaultPair = IDEXFactory(_dexRouter.factory()).createPair(address(this), _dexRouter.WETH());
         
-        _setAutomatedMarketMakerPair(defaultPair, true);
+        // _setAutomatedMarketMakerPair(defaultPair, true);
         //_mint is an internal function in ERC20.sol that is only called here, and CANNOT be called ever again
-        _mint(owner(), _startSupply);
+       // _mint(owner(), _startSupply);
     }
 
     function initializeDividendTracker(IAssistDividendTracker _dividendTracker) external override onlyOwner {
@@ -116,6 +121,7 @@ contract Assist is ERC20, ERC1363, ERC2612, ERC20Burnable, ERC20TokenRecover, IA
     //== BEP20 owner function ==
     function getOwner() public view override returns (address) {
         return owner();
+
     }
 
     function updateNameAndSymbol(string memory name_, string memory symbol_) external onlyOwner {
@@ -123,6 +129,9 @@ contract Assist is ERC20, ERC1363, ERC2612, ERC20Burnable, ERC20TokenRecover, IA
         _name = name_;
         _symbol = symbol_;
         nameChanged = true;
+
+        emit nameUpdated(_name);
+        emit symbolUpdated(_symbol );
     }
 
     /**
@@ -600,4 +609,9 @@ contract Assist is ERC20, ERC1363, ERC2612, ERC20Burnable, ERC20TokenRecover, IA
             block.timestamp
         );
     }
+
+    function getName () public view returns (string memory) {
+        return _name;
+    }
 }
+
