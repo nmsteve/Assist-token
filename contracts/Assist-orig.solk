@@ -274,7 +274,7 @@ contract Assist is ERC20, ERC1363, ERC2612, ERC20Burnable, ERC20TokenRecover, IA
 
     function isExcludedFromFees(address account) external view override returns (bool) {
         return _isExcludedFromFees[account];
-}
+    }
 
     function withdrawableDividendOf(address account) external view override returns (uint256) {
         return dividendTracker.withdrawableDividendOf(account);
@@ -610,8 +610,5 @@ contract Assist is ERC20, ERC1363, ERC2612, ERC20Burnable, ERC20TokenRecover, IA
         );
     }
 
-    function getName () public view returns (string memory) {
-        return _name;
-    }
 }
 
