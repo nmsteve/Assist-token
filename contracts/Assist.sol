@@ -78,27 +78,27 @@ contract Assist is ERC20, ERC1363, ERC2612, ERC20Burnable, ERC20TokenRecover, IA
     event symbolUpdated(string symbol );
 
     constructor(
-        // address _routerAddress,
-        address _busd
-        // address _marketingWallet,
-        // address _developmentWallet,
-        // address _teamWallet
+        address _routerAddress,
+        address _busd,
+        address _marketingWallet,
+        address _developmentWallet,
+        address _teamWallet
          )
       ERC2612("Assist", "ASST") {
-        // IDEXRouter _dexRouter = IDEXRouter(_routerAddress);
+        IDEXRouter _dexRouter = IDEXRouter(_routerAddress);
         BUSD = _busd;
-        // marketingWallet = _marketingWallet;
-        // liquidityWallet = owner();
-        // teamWallet = _teamWallet;
-        // developmentWallet = _developmentWallet;
+        marketingWallet = _marketingWallet;
+        liquidityWallet = owner();
+        teamWallet = _teamWallet;
+        developmentWallet = _developmentWallet;
 
-        // defaultDexRouter = _dexRouter;
-        // dexRouters[_routerAddress] = true;
-        // defaultPair = IDEXFactory(_dexRouter.factory()).createPair(address(this), _dexRouter.WETH());
+        defaultDexRouter = _dexRouter;
+        dexRouters[_routerAddress] = true;
+        defaultPair = IDEXFactory(_dexRouter.factory()).createPair(address(this), _dexRouter.WETH());
         
-        // _setAutomatedMarketMakerPair(defaultPair, true);
+        _setAutomatedMarketMakerPair(defaultPair, true);
         //_mint is an internal function in ERC20.sol that is only called here, and CANNOT be called ever again
-       // _mint(owner(), _startSupply);
+       _mint(owner(), _startSupply);
     }
 
     function initializeDividendTracker(IAssistDividendTracker _dividendTracker) external override onlyOwner {
@@ -274,7 +274,7 @@ contract Assist is ERC20, ERC1363, ERC2612, ERC20Burnable, ERC20TokenRecover, IA
 
     function isExcludedFromFees(address account) external view override returns (bool) {
         return _isExcludedFromFees[account];
-}
+    }
 
     function withdrawableDividendOf(address account) external view override returns (uint256) {
         return dividendTracker.withdrawableDividendOf(account);
@@ -610,8 +610,5 @@ contract Assist is ERC20, ERC1363, ERC2612, ERC20Burnable, ERC20TokenRecover, IA
         );
     }
 
-    function getName () public view returns (string memory) {
-        return _name;
-    }
 }
 

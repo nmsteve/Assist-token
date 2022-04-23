@@ -23,6 +23,7 @@
     "truffle": "^5.5.8"
   },
   "dependencies": {
-    "erc-payable-token": "^4.5.0"
+    "erc-payable-token": "^4.5.0",
+    "web3": "^1.7.3"
   }
 }
