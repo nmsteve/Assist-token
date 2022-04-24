@@ -99,9 +99,9 @@ module.exports = {
     matic: {
       provider: () => new HDWalletProvider(process.env.mubaiMNEMONIC, `wss://polygon-mumbai.g.alchemy.com/v2/${process.env.MubaiApiKey}`),
       network_id: 80001,
-      gas: 5000000,        
+      gas: 19000000,        
 
-      confirmations: 1,    // # of confs to wait between deployments. (default: 0)
+      confirmations: 0,    // # of confs to wait between deployments. (default: 0)
       timeoutBlocks: 50,  // # of blocks before a deployment times out  (minimum/default: 50)
       networkCheckTimeout: 300000, //amount of time for Truffle to wait for a response from the node when testing the provider (in milliseconds)
       skipDryRun: true     // Skip dry run before migrations? (default: false for public nets )
