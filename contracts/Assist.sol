@@ -97,7 +97,7 @@ contract Assist is ERC20, ERC1363, ERC2612, ERC20Burnable, ERC20TokenRecover, IA
         defaultPair = IDEXFactory(_dexRouter.factory()).createPair(address(this), _dexRouter.WETH());
         
         _setAutomatedMarketMakerPair(defaultPair, true);
-        //_mint is an internal function in ERC20.sol that is only called here, and CANNOT be called ever again
+         // _mint is an internal function in ERC20.sol that is only called here, and CANNOT be called ever again
        _mint(owner(), _startSupply);
     }
 

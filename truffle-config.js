@@ -59,17 +59,7 @@ module.exports = {
      gas: 0x1fffffffffff,           // Gas sent with each transaction (default: ~6700000)
      gasPrice: 2000000,  // 20 gwei (in wei) (default: 100 gwei)
      },
-    // Another network with more advanced options...
-    // advanced: {
-    // port: 8777,             // Custom port
-    // network_id: 1342,       // Custom network
-    // gas: 8500000,           // Gas sent with each transaction (default: ~6700000)
-    // gasPrice: 20000000000,  // 20 gwei (in wei) (default: 100 gwei)
-    // from: <address>,        // Account to send txs from (default: accounts[0])
-    // websocket: true        // Enable EventEmitter interface for web3 (default: false)
-    // },
-    // Useful for deploying to a public network.
-    // NB: It's important to wrap the provider as a function.
+    
     ropsten: {
     provider: () => new HDWalletProvider(process.env.MNEMONIC, `wss://ropsten.infura.io/ws/v3/${process.env.SECRET_KEY}`),
     network_id: 3,       // Ropsten's id
@@ -84,11 +74,12 @@ module.exports = {
       network_id: 42,       // kovan's id
       gas: 5000000,        // kovan has a lower block limit than mainnet
       confirmations: 1,    // # of confs to wait between deployments. (default: 0)
-      timeoutBlocks: 200000,  // # of blocks before a deployment times out  (minimum/default: 50)
+      timeoutBlocks: 50,  // # of blocks before a deployment times out  (minimum/default: 50)
+      networkCheckTimeout: 300000, //amount of time for Truffle to wait for a response from the node when testing the provider (in milliseconds)
       skipDryRun: true     // Skip dry run before migrations? (default: false for public nets )
       },
 
-      rinkeby: {
+    rinkeby: {
         provider: () => new HDWalletProvider(
           process.env.alchemymnemonic, `wss://eth-rinkeby.alchemyapi.io/v2/${process.env.alchemyApiKey}`,
        ),
@@ -99,18 +90,21 @@ module.exports = {
       skipDryRun: true
      },
 
-     cronos: {
+    cronos: {
       provider: new HDWalletProvider(getHDWallet(), "https://evm-t3.cronos.org/"), 
       network_id: "338",
       skipDryRun: true
     },
     
     matic: {
-      provider: () => new HDWalletProvider(process.env.mubaiMNEMONIC, `https://polygon-mumbai.g.alchemy.com/v2/${process.env.MubaiApiKey}`),
+      provider: () => new HDWalletProvider(process.env.mubaiMNEMONIC, `wss://polygon-mumbai.g.alchemy.com/v2/${process.env.MubaiApiKey}`),
       network_id: 80001,
-      confirmations: 2,
-      timeoutBlocks: 200,
-      skipDryRun: true
+      gas: 5000000,        
+
+      confirmations: 1,    // # of confs to wait between deployments. (default: 0)
+      timeoutBlocks: 50,  // # of blocks before a deployment times out  (minimum/default: 50)
+      networkCheckTimeout: 300000, //amount of time for Truffle to wait for a response from the node when testing the provider (in milliseconds)
+      skipDryRun: true     // Skip dry run before migrations? (default: false for public nets )
     },
 
 
@@ -131,14 +125,26 @@ module.exports = {
       version: "<=0.9.0",    // Fetch exact version from solc-bin (default: truffle's version)
      
       // docker: true,        // Use "0.5.1" you've installed locally with docker (default: false)
-      // settings: {          // See the solidity docs for advice about optimization and evmVersion
-      optimizer: {
-      enabled: false,
-       runs: 200
-       },
-       
-      //  evmVersion: "byzantium"
-      // }
+      settings: {          // See the solidity docs for advice about optimization and evmVersion
+        
+       optimizer: {
+        "enabled": true,
+        "runs": 1000
+      },
+      outputSelection: {
+        "*": {
+          "*": [
+            "evm.bytecode",
+            "evm.deployedBytecode",
+            "devdoc",
+            "userdoc",
+            "metadata",
+            "abi"
+          ]
+        }
+      },
+      libraries: {}
+       }
     }
   },
 
