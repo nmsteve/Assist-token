@@ -17,7 +17,7 @@ Use the following guides to connect to a test network using MetaMask
 
 ## Deployment instructions
 
-There are two contrctions to deploy- Assist and AssistDividendTracker.<br>
+There are two contracts to deploy- Assist and AssistDividendTracker.<br>
 
 ### Assist Contract
 You have to pass 5 parameters as seen in  2_deploy_Assist.js deployments scripts.
