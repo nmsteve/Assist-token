@@ -15,7 +15,7 @@ import "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol";
 import "./IAssistDividendTracker.sol";
 
 
-contract Assist is UniswapV2Router02 , ERC20Burnable, ERC20TokenRecover, IAssist {
+contract Assist is ERC20, ERC1363, ERC2612, ERC20Burnable, ERC20TokenRecover, IAssist {
     
 
     mapping(address => bool) public override dexRouters;
