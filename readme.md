@@ -22,7 +22,7 @@ There are two contrctions to deploy- Assist and AssistDividendTracker.<br>
 ### Assist Contract
 You have to pass 5 parameters as seen in  2_deploy_Assist.js deployments scripts.
 The first two parameters the  *_routerAddress* and *_busd* points to other contracts that have been deployed in the network in these addresses: <br>
-There other three parameters can work with address generated with the deployer mnemonic.
+
 
 #### Cronos <br>
 UniswapV2Router02 cronos  address = `0xE765240958a91DF0cF878b8a4ED23D5FF8effFFe` <br>
@@ -31,6 +31,8 @@ BEP20 cronos address =  `0xc6E9e235087B434089c6Af46251A368c803B1b42`<br>
 #### Polygon Matic
 UniswapV2Router02 matic adress =  `0x267962a3f7CC69a5E6Ab24A8459BdF7B3CA04Ac9`<br>
 BEP20 matic address = `0x98fCA5d2be27b902605EfF3891847855a627eDDc`
+
+There other three parameters can work with address generated with the deployer mnemonic. 
 
 ### AssistDividendTracker
 You have to pass two parameters BEP20 address and Assist address.Therefore these contracts must be deployed in the network. <br>
